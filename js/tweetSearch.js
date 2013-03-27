@@ -1,9 +1,9 @@
 
 var searchInput = $("#searchInput"),
-		getTweetsButton = $("#button"),
-		feedDiv = $("#feed"),
-		searchTerm = "",
-		returnedTweets = "";
+	getTweetsButton = $("#button"),
+	feedDiv = $("#feed"),
+	searchTerm = "",
+	returnedTweets = "";
 
 searchInput.focus(function (){
 	searchInput.val('');
@@ -13,12 +13,12 @@ searchInput.focus(function (){
 
 	
 getTweetsButton.on("click", function(event){
-	searchTerm = searchInput.val(); 
-  $.ajax({
-	  url: 'http://search.twitter.com/search.json?q=' + searchTerm,          
-	  dataType: 'jsonp',      
+	var searchTerm = searchInput.val(); 
+  	$.ajax({
+	  	url: 'http://search.twitter.com/search.json?q=' + searchTerm,          
+	  	dataType: 'jsonp',      
 		success: function(data) {
-			$.each(data.results, function(i, element){
+			$.each(data.results, function(i, element){  // turn this into forEach
     		returnedTweets = "<p><a href='http://twitter.com/" + element.from_user + "target='_blank'><img src=" + element.profile_image_url + " alt='picture of'" + element.from_user + "></a> &quot;" + element.text + "&quot; - <a href='http://twitter.com/" + element.from_user + "target='_blank'>@" + element.from_user + "</a><span class='date'> [" + element.created_at + "]</span></p>";        		
     		feedDiv.prepend(returnedTweets); //how do I remove existing feed on click of newTweets button?//
 			});
